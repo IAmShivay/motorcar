@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<{ username: string; email: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -22,7 +22,7 @@ export function Navbar() {
         if (token && storedUser) {
           setUser(JSON.parse(storedUser));
         }
-      } catch (error) {
+      } catch {
         console.error('Error checking user:', error);
       } finally {
         setLoading(false);

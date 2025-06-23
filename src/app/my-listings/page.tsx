@@ -13,7 +13,7 @@ import { useToastContext } from '@/contexts/ToastContext';
 
 export default function MyListingsPage() {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<{ email: string; username: string; profile?: { firstName?: string; lastName?: string } } | null>(null);
   const [cars, setCars] = useState<Car[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,7 +43,7 @@ export default function MyListingsPage() {
           if (mounted) {
             setUser(parsedUser);
           }
-        } catch (error) {
+        } catch {
           if (mounted) {
             toast.error('Session Error', 'Invalid session data. Please log in again.');
             router.push('/login?redirect=/my-listings');
@@ -73,7 +73,7 @@ export default function MyListingsPage() {
         try {
           // Try the dedicated my-listings endpoint first
           response = await carApi.getMyCars();
-        } catch (apiError: any) {
+        } catch {
           console.log('My-listings endpoint not available, using fallback method');
 
           // Fallback: Get all cars and filter by user
@@ -81,7 +81,7 @@ export default function MyListingsPage() {
 
           if (response.success && response.data) {
             // Filter cars by current user's email
-            const myCars = response.data.filter((car: any) =>
+            const myCars = response.data.filter((car: { seller?: { email?: string; name?: string } }) =>
               car.seller?.email === user.email ||
               car.seller?.name === user.username ||
               car.seller?.name === `${user.profile?.firstName || ''} ${user.profile?.lastName || ''}`.trim()
@@ -195,7 +195,7 @@ export default function MyListingsPage() {
             <CarIcon className="h-16 w-16 text-gray-400 mx-auto mb-6" />
             <h3 className="text-xl font-semibold text-gray-900 mb-4">No listings yet</h3>
             <p className="text-gray-600 mb-8 max-w-md mx-auto">
-              You haven't created any car listings yet. Start by adding your first car to reach potential buyers.
+              You haven&apos;t created any car listings yet. Start by adding your first car to reach potential buyers.
             </p>
             <Link
               href="/cars/new"

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { CarForm } from '@/components/CarForm';
 import { carApi } from '@/lib/api';
 import { CarFormData } from '@/types';
-import { getErrorMessage, generateCarSlug } from '@/lib/utils';
+import { generateCarSlug } from '@/lib/utils';
 
 export default function NewCarPage() {
   const router = useRouter();
@@ -41,7 +41,7 @@ export default function NewCarPage() {
       } else {
         throw new Error(response.message || 'Failed to create car listing');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Car creation error:', err);
 
       let errorMessage = 'Failed to create car listing. Please try again.';

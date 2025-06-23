@@ -51,6 +51,7 @@ export default function RegisterPage() {
       });
 
       const { confirmPassword, ...registerData } = data;
+      // confirmPassword is used for validation only, not sent to API
 
       const response = await authApi.register(registerData);
 
@@ -76,7 +77,7 @@ export default function RegisterPage() {
       } else {
         throw new Error(response.message || 'Registration failed');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Registration error:', err);
 
       let errorMessage = 'Registration failed. Please try again.';

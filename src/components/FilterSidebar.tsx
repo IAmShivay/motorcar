@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { CarFilters, FUEL_TYPES, TRANSMISSION_TYPES, BODY_TYPES } from '@/types';
-import { formatCurrency } from '@/lib/utils';
+// import { formatCurrency } from '@/lib/utils';
 import { X, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -12,7 +12,7 @@ interface FilterSidebarProps {
   loading?: boolean;
 }
 
-export function FilterSidebar({ filters, onFiltersChange, loading }: FilterSidebarProps) {
+export function FilterSidebar({ filters, onFiltersChange }: FilterSidebarProps) {
   const [expandedSections, setExpandedSections] = useState({
     price: true,
     year: true,

@@ -28,7 +28,7 @@ interface CarDetailPageProps {
 
 export function CarDetailPage({ car }: CarDetailPageProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [showContactForm, setShowContactForm] = useState(false);
+  // const [showContactForm, setShowContactForm] = useState(false);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => 

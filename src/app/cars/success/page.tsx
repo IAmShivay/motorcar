@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle, Car, Plus, Eye } from 'lucide-react';
 
-export default function CarSuccessPage() {
+function CarSuccessContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [carId, setCarId] = useState<string | null>(null);
+  // const [carId, setCarId] = useState<string | null>(null);
   const [carSlug, setCarSlug] = useState<string | null>(null);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function CarSuccessPage() {
       // If no car info, redirect to cars page
       router.push('/cars');
     } else {
-      setCarId(id);
+      // setCarId(id);
       setCarSlug(slug);
     }
   }, [searchParams, router]);
@@ -78,7 +78,7 @@ export default function CarSuccessPage() {
               <li>• Your listing is now visible to all users</li>
               <li>• Interested buyers can contact you directly</li>
               <li>• You can edit or delete your listing anytime</li>
-              <li>• We'll track views and interest for you</li>
+              <li>• We&apos;ll track views and interest for you</li>
             </ul>
           </div>
           
@@ -95,5 +95,18 @@ export default function CarSuccessPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CarSuccessPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading...</p>
+      </div>
+    </div>}>
+      <CarSuccessContent />
+    </Suspense>
   );
 }

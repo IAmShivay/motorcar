@@ -65,7 +65,7 @@ export default function ProfilePage() {
             city: parsedUser.profile?.city || '',
             state: parsedUser.profile?.state || '',
           });
-        } catch (error) {
+        } catch {
           toast.error('Session Error', 'Invalid session data. Please log in again.');
           router.push('/login?redirect=/profile');
         }
@@ -109,7 +109,7 @@ export default function ProfilePage() {
       } else {
         throw new Error(response.message || 'Failed to update profile');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error updating profile:', err);
       const errorMessage = err.response?.data?.message || err.message || 'Failed to update profile';
       toast.error('Update Failed', errorMessage);

@@ -107,7 +107,7 @@ export default function Home() {
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We make car buying and selling simple, secure, and transparent.
-              Here's what sets us apart from the competition.
+              Here&apos;s what sets us apart from the competition.
             </p>
           </div>
 

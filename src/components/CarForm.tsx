@@ -27,8 +27,8 @@ export function CarForm({
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-    watch,
+    // setValue,
+    // watch,
   } = useForm<CarFormData>({
     defaultValues: {
       make: initialData?.make || '',

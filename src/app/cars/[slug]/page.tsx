@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/cars/${params.slug}`,
       },
     };
-  } catch (error) {
+  } catch {
     return {
       title: 'Car Not Found - MS Motor',
       description: 'The requested car listing could not be found.',
@@ -103,7 +103,7 @@ export default async function CarPage({ params }: Props) {
         <CarDetailPage car={car} />
       </>
     );
-  } catch (error) {
+  } catch {
     notFound();
   }
 }

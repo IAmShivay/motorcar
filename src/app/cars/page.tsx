@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useCars } from '@/hooks/useCars';
 import { CarFilters } from '@/types';
 import { CarCard } from '@/components/CarCard';
