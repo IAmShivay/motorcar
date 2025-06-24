@@ -1,5 +1,15 @@
 import Link from 'next/link';
 import { Search, Car, Shield, Users, Star, ArrowRight } from 'lucide-react';
+import { generateMetadata as generateSEOMetadata, generateJsonLd, jsonLdSchemas, pageConfigs } from '@/lib/seo';
+
+export const metadata = generateSEOMetadata({
+  ...pageConfigs.home,
+  canonical: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+  jsonLd: {
+    ...jsonLdSchemas.organization,
+    ...jsonLdSchemas.website,
+  },
+});
 
 export default function Home() {
   const features = [
@@ -33,7 +43,20 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen">
+    <>
+      {/* JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: generateJsonLd([
+            jsonLdSchemas.organization,
+            jsonLdSchemas.website,
+            jsonLdSchemas.localBusiness,
+          ]),
+        }}
+      />
+
+      <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white">
         <div className="absolute inset-0 bg-black/20"></div>
@@ -151,5 +174,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }

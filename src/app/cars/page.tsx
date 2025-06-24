@@ -6,6 +6,7 @@ import { CarFilters } from '@/types';
 import { CarCard } from '@/components/CarCard';
 import { FilterSidebar } from '@/components/FilterSidebar';
 import { Pagination } from '@/components/Pagination';
+import { generateJsonLd, jsonLdSchemas } from '@/lib/seo';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { Filter, Grid, List, SortAsc } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -40,7 +41,22 @@ export default function CarsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+      {/* JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: generateJsonLd([
+            jsonLdSchemas.organization,
+            jsonLdSchemas.breadcrumbList([
+              { name: 'Home', url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000' },
+              { name: 'Cars', url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/cars` },
+            ]),
+          ]),
+        }}
+      />
+
+      <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -180,5 +196,6 @@ export default function CarsPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
